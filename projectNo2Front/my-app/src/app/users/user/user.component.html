@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div #userCardDiv class="card border border-3 border-success" style="width: 18rem" [ngStyle]="{'background-color': bgColor}" (click)="RenderContent(userDbId)" (click)="bgColor == '#BFFFF0'? bgColor = '#FC4F4F' : bgColor = '#BFFFF0'">
+                <div class="card-body">
+                  <h5 class="card-title">{{userName}} Data</h5>
+                  <p class="card-text">about the user</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" style="background-color: #F0FFC2;"><strong>ID: </strong> {{userId}}</li>
+                  <li class="list-group-item" style="background-color: #F0FFC2;"><strong>Name: </strong> {{userName}}</li>
+                  <li class="list-group-item" style="background-color: #F0FFC2;"><strong>Email: </strong> {{userEmail}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 d-grid gap-2">
+                            <a type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" (click)="GetUserById(userDbId)">More Details</a>
+                          <div class="row">
+                            <div class="col">
+                              <div class="collapse multi-collapse" id="multiCollapseExample1" #multiCollapseExample1>
+                                <div class="card card-body">
+                                  <ul>
+                                    <li><span class="fw-bold">Street: </span> {{street}}</li>
+                                    <li><span class="fw-bold">City: </span>{{city}}</li>
+                                    <li><span class="fw-bold">Zipcode: </span> {{zip}}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                            <a type="button" href="#" class="btn btn-outline-info px-2" data-bs-toggle="modal" data-bs-target="#updateModal" (click)="OpenUpdateModal()">Update</a>
+                            <a type="button" href="#" class="btn btn-outline-warning px-2 pt-2" (click)="DeleteUserById(userDbId)">Delete</a>
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<!-- UPDATE USER MODAL -->
+<div class="modal fade" id="updateModal" #updateModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">Update User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="py-3">
+              <h5>Which user you want to update?</h5>
+              <select name="usersNumbers" (click)="onChange($event)">
+                <option value={{user._id}} *ngFor="let user of allUsersData">{{user.Name}}</option>
+              </select>
+            </div>
+            <label for="name" class="fw-bold">Name:</label>
+            <input type="text" name="name" class="form-control py-2" placeholder="Name" [(ngModel)]="userName">
+            <label for="email" class="fw-bold">Email:</label>
+            <input type="text" name="email" placeholder="Email" class="form-control py-2" [(ngModel)]="userEmail">
+            <label for="street" class="fw-bold">Street:</label>
+            <input type="text" name="street" placeholder="Street" class="form-control py-2" [(ngModel)]="street">
+            <label for="city" class="fw-bold">City:</label>
+            <input type="text" name="city" placeholder="City name" class="form-control py-2" [(ngModel)]="city">
+            <label for="zipcode" class="fw-bold">Zip code:</label>
+            <input type="text" name="zipcode" placeholder="Zip code" class="form-control py-2" [(ngModel)]="zip">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="UpdateUserById()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

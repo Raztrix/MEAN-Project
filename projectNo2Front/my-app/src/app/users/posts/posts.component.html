@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="d-none" #postsDiv>
+                <h4>{{userName}} Posts</h4>
+                <button class="btn  btn-outline-success" data-bs-toggle="modal" data-bs-target="#postModal" (click)="OpenModal()">Add Post</button>
+                <app-post *ngFor="let post of userPosts; let Index = index" [Title]="post.Title" [Body]="post.Body" [rowNumber]="Index + 1"></app-post>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!---   ADD POST MODAL     ---->
+  
+  <div class="modal fade" id="postModal" #postModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="postModalLabel">Add Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <label for="title" class="fw-bold">Title:</label>
+            <input type="text" name="title" class="form-control py-2" placeholder="Post title" [(ngModel)]="Post.Title">
+            <label for="content" class="fw-bold">Content:</label><br/>
+            <textarea name="content" placeholder="Post content" class="form-control" cols="30" rows="10" [(ngModel)]="Post.Body"></textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="AddPost(userDbId, Post)" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

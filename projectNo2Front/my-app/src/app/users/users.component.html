@@ -1,0 +1,45 @@
+<nav class="navbar navbar-light bg-info">
+    <div class="container-fluid">
+      <a class="navbar-brand text-light">My App</a>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" (keyup)="onKeySearch($event)">
+        <button class="btn btn-outline-light" type="submit" (click)="Search(inputSearch)">Search</button>
+        <button class="btn btn-outline-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="Open()">Add</button>
+      </form>
+    </div>
+  </nav>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-sm-6">
+            <app-user *ngFor="let user of usersData; let Index = index" [userName]='user.Name' [userEmail]="user.Email" [userId]="Index + 1" [userDbId]="user._id.toString()" [allUsersData]="usersData"></app-user>
+        </div>
+        <div class="col-sm-6">
+            <app-posts></app-posts>
+            <app-quests></app-quests>
+        </div>
+    </div>
+</div>
+
+<!-- ADD USER MODAL -->
+<div class="modal fade" id="staticBackdrop" #staticBackdrop data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="name" class="fw-bold">Name:</label>
+          <input type="text" name="name" class="form-control py-2" placeholder="Name" (keyup)="onKeyName($event)">
+          <label for="email" class="fw-bold">Email:</label><br/>
+          <input type="text" name="email" placeholder="Email" (keyup)="onKeyEmail($event)">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)=CreateNewUser(inputName,inputEmail)>Insert</button>
+      </div>
+    </div>
+  </div>
+</div>

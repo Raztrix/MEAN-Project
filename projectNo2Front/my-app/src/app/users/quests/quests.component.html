@@ -1,0 +1,35 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col">
+            <div class="d-none" #tasksDiv>
+                <h5>{{userName}} Tasks</h5>
+                <button class="btn  btn-outline-success" data-bs-toggle="modal" data-bs-target="#taskModal" (click)="OpenModal()">Add Task</button>
+                <app-quest *ngFor="let task of userTasks; let Index = index" [Title]="task.Title" [Completed]="task.Completed" [rowNumber]="Index + 1" [userDbId]="userDbId"></app-quest>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!---   ADD TASK MODAL     ---->
+  
+  <div class="modal fade" id="taskModal" #taskModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taskModalLabel">Add Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <label for="title" class="fw-bold">Title:</label>
+            <input type="text" name="title" class="form-control py-2" placeholder="Your task" [(ngModel)]="Task.Title">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="AddTask(userDbId, Task)" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
